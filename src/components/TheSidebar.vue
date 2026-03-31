@@ -38,6 +38,13 @@ const userDisplayName = computed(() => {
         <div slot="headline">Home</div>
       </md-list-item>
 
+      <template v-if="authStore.hasRole('Admin')">
+        <md-list-item @click="navigateTo('/users/by-role')" type="button">
+          <md-icon slot="start">group</md-icon>
+          <div slot="headline">Users by Role</div>
+        </md-list-item>
+      </template>
+
       <template v-if="!authStore.user">
         <md-list-item @click="navigateTo('/login')" type="button">
           <md-icon slot="start">login</md-icon>

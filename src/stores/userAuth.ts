@@ -10,6 +10,21 @@ export const userAuthStore = defineStore('user-auth', {
     accessToken: undefined as string | undefined,
     refreshToken: undefined as string | undefined,
   }),
+  getters: {
+    isAuthenticated: (state) => !!state.accessToken && !!state.user,
+    hasRole: (state) => {
+      return (role: components['schemas']['UserRole']) => {
+        if (!state.user || !state.user.roles) return false
+        return state.user.roles.includes(role)
+      }
+    },
+    hasAnyRole: (state) => {
+      return (roles: components['schemas']['UserRole'][]) => {
+        if (!state.user || !state.user.roles) return false
+        return roles.some((role) => state.user!.roles!.includes(role))
+      }
+    },
+  },
   actions: {
     logout() {
       this.user = undefined

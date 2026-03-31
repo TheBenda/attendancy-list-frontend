@@ -21,7 +21,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Build Tool:** Vite.
 - **State Management:** Pinia (stores are located in `src/stores/`).
 - **Routing:** Vue Router (configuration in `src/router/`, page components in `src/views/`).
-- **Styling:** Uses `material/web` V3.
+- **Styling:** Uses as much from `material/web` as possible.
 - **API Communication:** The project uses `openapi-fetch` for interacting with the backend API.
 - **Testing:**
   - Unit tests are written using Vitest.
@@ -31,3 +31,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Architecture
 
 - **Auth** The App has to implement role based access controll
+- **Roles** The usable roles are ["Admin", "CoAdmin", "Team", "Parent"]
