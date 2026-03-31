@@ -98,4 +98,14 @@ const userDisplayName = computed(() => {
 md-list {
   --md-list-container-color: transparent;
 }
+
+md-list-item {
+  --md-list-item-label-text-color: var(--color-text);
+  --md-list-item-leading-icon-color: var(--color-text);
+  opacity: 0.85; /* Lightens the overall text/icon appearance */
+}
+
+md-list-item:hover {
+  opacity: 1;
+}
 </style>
