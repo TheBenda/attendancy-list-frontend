@@ -36,7 +36,7 @@ const router = createRouter({
       component: () => import('../views/UnauthorizedView.vue'),
     },
     {
-      path: '/users',
+      path: '/users/by-role',
       name: 'users-by-role',
       component: () => import('../views/users/UsersByRoles.vue'),
       meta: {

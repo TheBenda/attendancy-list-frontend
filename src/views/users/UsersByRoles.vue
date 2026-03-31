@@ -2,11 +2,13 @@
 import { ref, onMounted } from 'vue'
 import client from '@/stores/apiAdapter'
 import type { components } from '@/stores/api/apiclient'
+import { userAuthStore } from '@/stores/userAuth'
 
 type UserDto = components['schemas']['UserDto']
 type UserRole = components['schemas']['UserRole']
 
 const roles: UserRole[] = ['Admin', 'CoAdmin', 'Team', 'Parent']
+const authStore = userAuthStore()
 
 const usersByRole = ref<Record<string, UserDto[]>>({
   Admin: [],
@@ -30,6 +32,9 @@ const fetchUsersByRoles = async () => {
             userRole: role,
           },
         },
+        headers: {
+          Authorization: `Bearer ${authStore.accessToken}`
+        }
       })
 
       if (apiError) {
