@@ -43,6 +43,11 @@ const userDisplayName = computed(() => {
           <md-icon slot="start">group</md-icon>
           <div slot="headline">Users by Role</div>
         </md-list-item>
+
+        <md-list-item @click="navigateTo('/users/create')" type="button">
+          <md-icon slot="start">person_add</md-icon>
+          <div slot="headline">Create User</div>
+        </md-list-item>
       </template>
 
       <template v-if="!authStore.user">

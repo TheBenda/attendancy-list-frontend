@@ -47,6 +47,17 @@ const router = createRouter({
         ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
+    {
+      path: '/users/create',
+      name: 'user-create',
+      component: () => import('../views/users/CreateUser.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: [
+          'Admin',
+        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+      },
+    },
   ],
 })
 
