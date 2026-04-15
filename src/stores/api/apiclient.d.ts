@@ -197,7 +197,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        get: operations["GetChildren"];
         put?: never;
         post: operations["CreateChild"];
         delete?: never;
@@ -335,6 +335,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetGroups"];
+        put: operations["UpdateGroup"];
+        post: operations["CreateGroup"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/groups/{groupId}/cohorts": {
         parameters: {
             query?: never;
@@ -367,15 +383,31 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/groups": {
+    "/api/groups/allowed-groupnames": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get?: never;
-        put: operations["UpdateGroup"];
+        get: operations["GetAllowedGroupnames"];
+        put?: never;
+        post: operations["CreateAllowedGroupname"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/groups/academic-years": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetAcademicYears"];
+        put?: never;
         post?: never;
         delete?: never;
         options?: never;
@@ -532,11 +564,24 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        AcademicYearDto: {
+            /** Format: uuid */
+            id: string;
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+        };
         AddChildToGroupRequest: {
             childIds: string[];
         };
         AddUserRoleRequest: {
             role: string;
+        };
+        AllowedGroupnamesDto: {
+            /** Format: uuid */
+            id: string;
+            groupName: string;
         };
         AttendanceStatus: {
             /** Format: int32 */
@@ -560,6 +605,9 @@ export interface components {
             /** Format: int32 */
             absenceStatusId: number | string;
         };
+        CreateAllowedGroupnameRequest: {
+            groupName: string;
+        };
         CreateAttendanceListEntryRequest: {
             /** Format: uuid */
             childId: string;
@@ -575,12 +623,26 @@ export interface components {
             firstName: string;
             lastName: string;
             dateOfBirth: components["schemas"]["LocalDate"];
+            guardianIds: string[];
         };
         CreateCohortRequest: {
             /** Format: int32 */
             creationYear: number | string;
             /** Format: uuid */
             gradeId: string;
+        };
+        CreateGroupRequest: {
+            groupName: string;
+            /** Format: uuid */
+            responsibleUserId: string;
+            /** Format: uuid */
+            academicYearId: string;
+            /** Format: uuid */
+            groupnameId: string;
+        };
+        CreateGroupResponse: {
+            /** Format: uuid */
+            id: string;
         };
         CreateUserRequest: {
             email: string;
@@ -601,14 +663,43 @@ export interface components {
         ForgotPasswordRequest: {
             email: string;
         };
+        GetAllowedGroupnamesResponse: {
+            allowedGroupnames: components["schemas"]["AllowedGroupnamesDto"][];
+        };
         GetAttendancePageRequest: {
             date: components["schemas"]["LocalDate"];
+        };
+        GetChildResponse: {
+            /** Format: uuid */
+            id: string;
+            firstName: string;
+            lastName: string;
+            dateOfBirth: components["schemas"]["LocalDate"];
+        };
+        GetGroupResponse: {
+            /** Format: uuid */
+            id: string;
+            groupName: string;
+        };
+        GetGroupsResponse: {
+            groups: components["schemas"]["GetGroupResponse"][];
         };
         GetUserResponse: {
             user: components["schemas"]["UserDto"];
         };
         GetUsersResponse: {
             users: components["schemas"]["UserDto"][];
+        };
+        GuidCursorRequest: {
+            /** Format: uuid */
+            cursor: null | string;
+            /** Format: int32 */
+            limit: number | string;
+        };
+        GuidCursorResponseOfGetChildResponse: {
+            items: components["schemas"]["GetChildResponse"][];
+            cursor: components["schemas"]["GuidCursorRequest"];
+            hasMore: boolean;
         };
         HttpValidationProblemDetails: {
             type?: null | string;
@@ -645,6 +736,10 @@ export interface components {
             user: components["schemas"]["UserDto"];
             accessToken: string;
             refreshToken: string;
+        };
+        NoContentResult: {
+            /** Format: int32 */
+            statusCode?: number | string;
         };
         ProblemDetails: {
             type?: null | string;
@@ -775,6 +870,38 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    GetChildren: {
+        parameters: {
+            query?: {
+                cursor?: string;
+                limit?: number | string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GuidCursorResponseOfGetChildResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
             };
         };
     };
@@ -1164,6 +1291,81 @@ export interface operations {
             };
         };
     };
+    GetGroups: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetGroupsResponse"];
+                };
+            };
+        };
+    };
+    UpdateGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateGroupRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateGroupRequest"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CreateGroupResponse"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": components["schemas"]["ProblemDetails"];
+                };
+            };
+        };
+    };
     CreateCohort: {
         parameters: {
             query?: never;
@@ -1208,7 +1410,27 @@ export interface operations {
             };
         };
     };
-    UpdateGroup: {
+    GetAllowedGroupnames: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetAllowedGroupnamesResponse"];
+                };
+            };
+        };
+    };
+    CreateAllowedGroupname: {
         parameters: {
             query?: never;
             header?: never;
@@ -1217,7 +1439,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UpdateGroupRequest"];
+                "application/json": components["schemas"]["CreateAllowedGroupnameRequest"];
             };
         };
         responses: {
@@ -1226,7 +1448,29 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["NoContentResult"];
+                };
+            };
+        };
+    };
+    GetAcademicYears: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AcademicYearDto"][];
+                };
             };
         };
     };

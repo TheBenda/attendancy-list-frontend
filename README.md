@@ -23,6 +23,10 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 
 See [Vite Configuration Reference](https://vite.dev/config/).
 
+## Generate Openapi
+cd src/stores/api   
+npx openapi-typescript http://localhost:52358/openapi/v1.json -o ./apiclient.d.ts
+
 ## Project Setup
 
 ```sh

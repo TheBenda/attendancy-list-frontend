@@ -58,6 +58,17 @@ const router = createRouter({
         ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
+    {
+      path: '/groups',
+      name: 'groups',
+      component: () => import('../views/groups/GroupManagement.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: [
+          'Admin',
+        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+      },
+    },
   ],
 })
 

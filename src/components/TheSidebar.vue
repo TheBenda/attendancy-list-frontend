@@ -39,6 +39,11 @@ const userDisplayName = computed(() => {
       </md-list-item>
 
       <template v-if="authStore.hasRole('Admin')">
+        <md-list-item @click="navigateTo('/groups')" type="button">
+          <md-icon slot="start">domain</md-icon>
+          <div slot="headline">Groups</div>
+        </md-list-item>
+
         <md-list-item @click="navigateTo('/users/by-role')" type="button">
           <md-icon slot="start">group</md-icon>
           <div slot="headline">Users by Role</div>
