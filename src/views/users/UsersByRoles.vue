@@ -10,7 +10,7 @@ type UserRole = components['schemas']['UserRole']
 const roles: UserRole[] = ['Admin', 'CoAdmin', 'Team', 'Parent']
 const authStore = userAuthStore()
 
-const usersByRole = ref<Record<string, UserDto[]>>({
+const usersByRole = ref<Record<UserRole, UserDto[]>>({
   Admin: [],
   CoAdmin: [],
   Team: [],
@@ -56,12 +56,12 @@ const fetchUsersByRoles = async () => {
 }
 
 const getInitials = (user: UserDto) => {
-  if (user.firstName && user.lastName) {
-    return `${user.firstName[0]}${user.lastName[0]}`.toUpperCase()
+  if (user.firstName && user.lastName && user.firstName.length > 0 && user.lastName.length > 0) {
+    return `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`.toUpperCase()
   }
-  if (user.firstName) return user.firstName[0].toUpperCase()
-  if (user.lastName) return user.lastName[0].toUpperCase()
-  if (user.email) return user.email[0].toUpperCase()
+  if (user.firstName && user.firstName.length > 0) return user.firstName.charAt(0).toUpperCase()
+  if (user.lastName && user.lastName.length > 0) return user.lastName.charAt(0).toUpperCase()
+  if (user.email && user.email.length > 0) return user.email.charAt(0).toUpperCase()
   return 'U'
 }
 
