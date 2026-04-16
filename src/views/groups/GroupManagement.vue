@@ -4,6 +4,7 @@ import client from '@/stores/apiAdapter'
 import { userAuthStore } from '@/stores/userAuth'
 import type { components } from '@/stores/api/apiclient'
 import { toast } from 'vue3-toastify'
+import CreateGroup from '@/components/groups/CreateGroup.vue'
 
 type GroupDto = components['schemas']['GetGroupResponse']
 
@@ -11,6 +12,12 @@ const authStore = userAuthStore()
 
 const groups = ref<GroupDto[]>([])
 const isLoading = ref(true)
+
+const createGroupModal = ref<InstanceType<typeof CreateGroup> | null>(null)
+
+const openCreateGroupModal = () => {
+  createGroupModal.value?.openModal()
+}
 
 const fetchGroups = async () => {
   isLoading.value = true
@@ -45,10 +52,16 @@ onMounted(() => {
   <main class="group-management-container">
     <div class="header-section">
       <h1 class="md-typescale-display-small">Group Management</h1>
-      <md-filled-tonal-button @click="fetchGroups" :disabled="isLoading">
-        <md-icon slot="icon">refresh</md-icon>
-        Refresh
-      </md-filled-tonal-button>
+      <div class="header-actions">
+        <md-filled-tonal-button @click="fetchGroups" :disabled="isLoading">
+          <md-icon slot="icon">refresh</md-icon>
+          Refresh
+        </md-filled-tonal-button>
+        <md-filled-button @click="openCreateGroupModal">
+          <md-icon slot="icon">add</md-icon>
+          Create Group
+        </md-filled-button>
+      </div>
     </div>
 
     <div v-if="isLoading" class="loading-state">
@@ -84,6 +97,8 @@ onMounted(() => {
         </md-list>
       </div>
     </div>
+
+    <CreateGroup ref="createGroupModal" @group-created="fetchGroups" />
   </main>
 </template>
 
@@ -99,6 +114,12 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 h1 {

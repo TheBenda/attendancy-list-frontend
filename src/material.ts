@@ -13,4 +13,6 @@ import '@material/web/list/list.js'
 import '@material/web/list/list-item.js'
 import '@material/web/select/outlined-select.js'
 import '@material/web/select/select-option.js'
+import '@material/web/dialog/dialog.js'
+import '@material/web/progress/circular-progress.js'
 // Add any other components you need from @material/web here
