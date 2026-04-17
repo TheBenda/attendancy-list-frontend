@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import client from '@/stores/apiAdapter'
 import type { components } from '@/stores/api/apiclient'
 import { userAuthStore } from '@/stores/userAuth'
@@ -9,6 +10,11 @@ type UserRole = components['schemas']['UserRole']
 
 const roles: UserRole[] = ['Admin', 'CoAdmin', 'Team', 'Parent']
 const authStore = userAuthStore()
+const router = useRouter()
+
+const navigateToCreateUser = () => {
+  router.push('/users/create')
+}
 
 const usersByRole = ref<Record<UserRole, UserDto[]>>({
   Admin: [],
@@ -74,10 +80,16 @@ onMounted(() => {
   <main class="users-by-roles-container">
     <div class="header-section">
       <h1 class="md-typescale-display-small">Users by Role</h1>
-      <md-filled-tonal-button @click="fetchUsersByRoles" :disabled="isLoading">
-        <md-icon slot="icon">refresh</md-icon>
-        Refresh
-      </md-filled-tonal-button>
+      <div class="header-actions">
+        <md-filled-tonal-button @click="fetchUsersByRoles" :disabled="isLoading">
+          <md-icon slot="icon">refresh</md-icon>
+          Refresh
+        </md-filled-tonal-button>
+        <md-filled-button v-if="authStore.hasRole('Admin')" @click="navigateToCreateUser">
+          <md-icon slot="icon">person_add</md-icon>
+          Create User
+        </md-filled-button>
+      </div>
     </div>
 
     <div v-if="error" class="error-container">
@@ -146,6 +158,12 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 h1 {

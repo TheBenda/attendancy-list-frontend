@@ -69,6 +69,30 @@ const router = createRouter({
         ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
+    {
+      path: '/children',
+      name: 'children',
+      component: () => import('../views/children/ChildrenManagement.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: [
+          'Admin',
+          'CoAdmin',
+          'Team'
+        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+      },
+    },
+    {
+      path: '/groups/allowed-groupnames',
+      name: 'allowed-groupnames',
+      component: () => import('../views/groups/AllowedGroupnamesManagement.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: [
+          'Admin',
+        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+      },
+    },
   ],
 })
 

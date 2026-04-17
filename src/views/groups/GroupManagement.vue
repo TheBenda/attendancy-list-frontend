@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import client from '@/stores/apiAdapter'
 import { userAuthStore } from '@/stores/userAuth'
 import type { components } from '@/stores/api/apiclient'
@@ -8,6 +9,7 @@ import CreateGroup from '@/components/groups/CreateGroup.vue'
 
 type GroupDto = components['schemas']['GetGroupResponse']
 
+const router = useRouter()
 const authStore = userAuthStore()
 
 const groups = ref<GroupDto[]>([])
@@ -17,6 +19,10 @@ const createGroupModal = ref<InstanceType<typeof CreateGroup> | null>(null)
 
 const openCreateGroupModal = () => {
   createGroupModal.value?.openModal()
+}
+
+const navigateToAllowedGroupnames = () => {
+  router.push('/groups/allowed-groupnames')
 }
 
 const fetchGroups = async () => {
@@ -53,6 +59,10 @@ onMounted(() => {
     <div class="header-section">
       <h1 class="md-typescale-display-small">Group Management</h1>
       <div class="header-actions">
+        <md-filled-tonal-button @click="navigateToAllowedGroupnames">
+          <md-icon slot="icon">settings</md-icon>
+          Groupname Management
+        </md-filled-tonal-button>
         <md-filled-tonal-button @click="fetchGroups" :disabled="isLoading">
           <md-icon slot="icon">refresh</md-icon>
           Refresh
