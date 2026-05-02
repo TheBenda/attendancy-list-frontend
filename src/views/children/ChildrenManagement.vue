@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import client from '@/stores/apiAdapter'
 import { userAuthStore } from '@/stores/userAuth'
 import type { components } from '@/stores/api/apiclient'
 import { toast } from 'vue3-toastify'
 
 type ChildDto = components['schemas']['GetChildResponse']
-type LocalDate = components['schemas']['LocalDate']
 
 const authStore = userAuthStore()
+const router = useRouter()
 
 const children = ref<ChildDto[]>([])
 const isLoading = ref(true)
@@ -17,13 +18,15 @@ const hasMore = ref(false)
 const currentCursor = ref<string | null>(null)
 const PAGE_LIMIT = 20
 
-const formatLocalDate = (date: LocalDate) => {
-  if (!date.year || !date.month || !date.day) return 'Unknown Date'
+const formatDate = (timestampSeconds: number | string) => {
+  if (timestampSeconds == null) return 'Unknown Date'
 
-  // Create a string like "2023-05-12" to be easily formatted or just format directly
-  const y = date.year
-  const m = String(date.month).padStart(2, '0')
-  const d = String(date.day).padStart(2, '0')
+  const ts = typeof timestampSeconds === 'string' ? parseInt(timestampSeconds, 10) : timestampSeconds
+
+  const date = new Date(ts * 1000)
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
 
   return `${y}-${m}-${d}` // simple YYYY-MM-DD
 }
@@ -41,7 +44,7 @@ const fetchChildren = async (reset = false) => {
     const { data, error: apiError } = await client.GET('/api/children', {
       params: {
         query: {
-          cursor: currentCursor.value || undefined,
+          //...(currentCursor.value ? { cursor: currentCursor.value } : {}),
           limit: PAGE_LIMIT
         }
       },
@@ -82,6 +85,10 @@ const loadMore = () => {
   }
 }
 
+const navigateToCreateChild = () => {
+  router.push('/children/create')
+}
+
 onMounted(() => {
   fetchChildren(true)
 })
@@ -96,7 +103,7 @@ onMounted(() => {
           <md-icon slot="icon">refresh</md-icon>
           Refresh
         </md-filled-tonal-button>
-        <md-filled-button>
+        <md-filled-button @click="navigateToCreateChild">
           <md-icon slot="icon">add</md-icon>
           Register Child
         </md-filled-button>
@@ -132,8 +139,8 @@ onMounted(() => {
             </div>
 
             <div slot="supporting-text">
-              <span v-if="child.dateOfBirth">
-                DOB: {{ formatLocalDate(child.dateOfBirth) }}
+              <span v-if="child.dateOfBirth != null">
+                DOB: {{ formatDate(child.dateOfBirth) }}
               </span>
             </div>
 

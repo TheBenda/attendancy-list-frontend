@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@material/web": "^2.4.1",
+    "@vuepic/vue-datepicker": "^12.1.0",
     "lit": "^3.3.2",
     "material-symbols": "^0.43.0",
     "openapi-fetch": "^0.15.0",
