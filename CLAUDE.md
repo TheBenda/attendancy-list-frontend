@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Rules
+
+- Always use the AskUserQuestion tool if there are less than 8 responses possible, or if ambiguity exists.
+- Use AskUserQuestion to gather requirements one question at a time, using the interactive multi-choice interface.
+
 ## Commands
 
 - **Install dependencies:** `npm install`

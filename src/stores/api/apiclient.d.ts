@@ -303,6 +303,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/users/guardians-children/{guardianId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetChildrenOfGuardian"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/users/{userId}/roles": {
         parameters: {
             query?: never;
@@ -345,22 +361,6 @@ export interface paths {
         get: operations["GetGroups"];
         put: operations["UpdateGroup"];
         post: operations["CreateGroup"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/groups/{groupId}/cohorts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["CreateCohort"];
         delete?: never;
         options?: never;
         head?: never;
@@ -588,14 +588,13 @@ export interface components {
             id?: number | string;
             name: string;
         };
-        CalendarSystem: {
-            id?: null | string;
-            name?: null | string;
-            /** Format: int32 */
-            minYear?: number | string;
-            /** Format: int32 */
-            maxYear?: number | string;
-            eras?: null | components["schemas"]["Era"][];
+        ChildDto: {
+            firstName: string;
+            lastName: string;
+            /** Format: uuid */
+            id: string;
+            /** Format: int64 */
+            dateOfBirth: number | string;
         };
         CreateAbsenceRequest: {
             /** Format: date-time */
@@ -622,14 +621,9 @@ export interface components {
         CreateChildRequest: {
             firstName: string;
             lastName: string;
-            dateOfBirth: components["schemas"]["LocalDate"];
+            /** Format: int64 */
+            dateOfBirth: number | string;
             guardianIds: string[];
-        };
-        CreateCohortRequest: {
-            /** Format: int32 */
-            creationYear: number | string;
-            /** Format: uuid */
-            gradeId: string;
         };
         CreateGroupRequest: {
             groupName: string;
@@ -657,9 +651,6 @@ export interface components {
             firstName: null | string;
             lastName: null | string;
         };
-        Era: {
-            name?: null | string;
-        };
         ForgotPasswordRequest: {
             email: string;
         };
@@ -669,12 +660,16 @@ export interface components {
         GetAttendancePageRequest: {
             date: components["schemas"]["LocalDate"];
         };
+        GetChildrenOfGuardianResponse: {
+            children: components["schemas"]["ChildDto"][];
+        };
         GetChildResponse: {
             /** Format: uuid */
             id: string;
             firstName: string;
             lastName: string;
-            dateOfBirth: components["schemas"]["LocalDate"];
+            /** Format: int64 */
+            dateOfBirth: number | string;
         };
         GetGroupResponse: {
             /** Format: uuid */
@@ -712,22 +707,7 @@ export interface components {
                 [key: string]: string[];
             };
         };
-        IsoDayOfWeek: number;
-        LocalDate: {
-            calendar?: components["schemas"]["CalendarSystem"];
-            /** Format: int32 */
-            year?: number | string;
-            /** Format: int32 */
-            month?: number | string;
-            /** Format: int32 */
-            day?: number | string;
-            dayOfWeek?: components["schemas"]["IsoDayOfWeek"];
-            /** Format: int32 */
-            yearOfEra?: number | string;
-            era?: components["schemas"]["Era"];
-            /** Format: int32 */
-            dayOfYear?: number | string;
-        };
+        LocalDate: unknown;
         LoginRequest: {
             email: string;
             password: string;
@@ -774,7 +754,8 @@ export interface components {
         UpdateChildRequest: {
             childFirstName: string;
             childLastName: string;
-            childDateOfBirth: components["schemas"]["LocalDate"];
+            /** Format: int64 */
+            dateOfBirth: number | string;
         };
         UpdateGroupRequest: {
             /** Format: uuid */
@@ -1176,6 +1157,28 @@ export interface operations {
             };
         };
     };
+    GetChildrenOfGuardian: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                guardianId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetChildrenOfGuardianResponse"];
+                };
+            };
+        };
+    };
     AddUserRole: {
         parameters: {
             query?: never;
@@ -1363,30 +1366,6 @@ export interface operations {
                 content: {
                     "application/problem+json": components["schemas"]["ProblemDetails"];
                 };
-            };
-        };
-    };
-    CreateCohort: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateCohortRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
