@@ -162,7 +162,8 @@ h1 {
 
 @media (min-width: 1024px) {
   .groups-grid {
-    grid-template-columns: 1fr; /* Keep it single column for now, can change if needed */
+    grid-template-columns: 1fr;
+    /* Keep it single column for now, can change if needed */
   }
 }
 
