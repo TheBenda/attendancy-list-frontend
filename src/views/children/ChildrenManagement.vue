@@ -21,14 +21,15 @@ const PAGE_LIMIT = 20
 const formatDate = (timestampSeconds: number | string) => {
   if (timestampSeconds == null) return 'Unknown Date'
 
-  const ts = typeof timestampSeconds === 'string' ? parseInt(timestampSeconds, 10) : timestampSeconds
+  const ts =
+    typeof timestampSeconds === 'string' ? parseInt(timestampSeconds, 10) : timestampSeconds
 
   const date = new Date(ts * 1000)
   const y = date.getFullYear()
   const m = String(date.getMonth() + 1).padStart(2, '0')
   const d = String(date.getDate()).padStart(2, '0')
 
-  return `${y}-${m}-${d}` // simple YYYY-MM-DD
+  return `${y}-${m}-${d}`
 }
 
 const fetchChildren = async (reset = false) => {
@@ -45,12 +46,12 @@ const fetchChildren = async (reset = false) => {
       params: {
         query: {
           //...(currentCursor.value ? { cursor: currentCursor.value } : {}),
-          limit: PAGE_LIMIT
-        }
+          limit: PAGE_LIMIT,
+        },
       },
       headers: {
-        Authorization: `Bearer ${authStore.accessToken}`
-      }
+        Authorization: `Bearer ${authStore.accessToken}`,
+      },
     })
 
     if (apiError) {
@@ -134,9 +135,7 @@ onMounted(() => {
               {{ child.firstName ? child.firstName.charAt(0).toUpperCase() : 'C' }}
             </div>
 
-            <div slot="headline">
-              {{ child.firstName }} {{ child.lastName }}
-            </div>
+            <div slot="headline">{{ child.firstName }} {{ child.lastName }}</div>
 
             <div slot="supporting-text">
               <span v-if="child.dateOfBirth != null">

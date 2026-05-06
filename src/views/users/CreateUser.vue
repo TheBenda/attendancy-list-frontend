@@ -132,13 +132,13 @@ const submitForm = async () => {
       ></md-outlined-text-field>
 
       <div class="role-selector">
-        <label for="role-select" class="md-typescale-body-medium" style="margin-bottom: 8px; display: block; color: var(--md-sys-color-on-surface-variant);">Role *</label>
-        <select
-          id="role-select"
-          v-model="selectedRole"
-          required
-          class="native-select"
+        <label
+          for="role-select"
+          class="md-typescale-body-medium"
+          style="margin-bottom: 8px; display: block; color: var(--md-sys-color-on-surface-variant)"
+          >Role *</label
         >
+        <select id="role-select" v-model="selectedRole" required class="native-select">
           <option value="" disabled>Select a role</option>
           <option v-for="role in roles" :key="role" :value="role">{{ role }}</option>
         </select>

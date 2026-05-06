@@ -27,11 +27,11 @@ onMounted(async () => {
   try {
     const { data, error } = await client.GET('/api/users/by-role', {
       params: {
-        query: { userRole: 'Parent' }
+        query: { userRole: 'Parent' },
       },
       headers: {
-        Authorization: `Bearer ${authStore.accessToken}`
-      }
+        Authorization: `Bearer ${authStore.accessToken}`,
+      },
     })
 
     if (error) {
@@ -67,11 +67,11 @@ const submitForm = async () => {
         firstName: firstName.value,
         lastName: lastName.value,
         dateOfBirth: timestampSeconds,
-        guardianIds: selectedGuardianIds.value
+        guardianIds: selectedGuardianIds.value,
       },
       headers: {
-        Authorization: `Bearer ${authStore.accessToken}`
-      }
+        Authorization: `Bearer ${authStore.accessToken}`,
+      },
     })
 
     if (error) {
@@ -147,7 +147,9 @@ const goBack = () => {
       </div>
 
       <div class="guardian-selector">
-        <label for="guardian-select" class="md-typescale-body-medium input-label">Guardians (Optional)</label>
+        <label for="guardian-select" class="md-typescale-body-medium input-label"
+          >Guardians (Optional)</label
+        >
         <div v-if="isLoadingParents" class="loading-parents">Loading parents...</div>
         <select
           v-else
@@ -167,9 +169,7 @@ const goBack = () => {
         <md-text-button type="button" @click="goBack" :disabled="isLoading">
           Cancel
         </md-text-button>
-        <md-filled-button type="submit" :disabled="isLoading">
-          Register
-        </md-filled-button>
+        <md-filled-button type="submit" :disabled="isLoading"> Register </md-filled-button>
       </div>
     </form>
   </main>

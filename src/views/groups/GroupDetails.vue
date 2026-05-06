@@ -5,6 +5,7 @@ import client from '@/stores/apiAdapter'
 import { userAuthStore } from '@/stores/userAuth'
 import type { components } from '@/stores/api/apiclient'
 import { toast } from 'vue3-toastify'
+import AddChildrenToGroupModal from '@/modals/children/AddChildrenToGroupModal.vue'
 
 type GroupDto = components['schemas']['GetGroupResponse']
 
@@ -18,6 +19,29 @@ const group = ref<GroupDto | null>(null)
 
 group.value?.responsibleUser!.email
 
+const isAddModalOpen = ref(false)
+
+const openAddChildrenModal = () => {
+  isAddModalOpen.value = true
+}
+
+const handleChildrenAdded = () => {
+  fetchGroupDetails(route.params.id)
+}
+
+const formatDate = (timestampSeconds: number | string) => {
+  if (timestampSeconds == null) return 'Unknown Date'
+
+  const ts =
+    typeof timestampSeconds === 'string' ? parseInt(timestampSeconds, 10) : timestampSeconds
+
+  const date = new Date(ts * 1000)
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+
+  return `${y}-${m}-${d}`
+}
 
 const navigateToGroupsManagement = () => {
   router.push('/groups')
@@ -26,16 +50,15 @@ const navigateToGroupsManagement = () => {
 const fetchGroupDetails = async (groupId: string | string[] | undefined) => {
   isLoading.value = true
 
-  if (typeof groupId === "string" && groupId) {
-
+  if (typeof groupId === 'string' && groupId) {
     try {
       const { data, error: apiError } = await client.GET('/api/groups/{groupId}', {
         params: {
-          path: { groupId: groupId }
+          path: { groupId: groupId },
         },
         headers: {
-          Authorization: `Bearer ${authStore.accessToken}`
-        }
+          Authorization: `Bearer ${authStore.accessToken}`,
+        },
       })
 
       if (apiError) {
@@ -58,19 +81,13 @@ const fetchGroupDetails = async (groupId: string | string[] | undefined) => {
   }
 }
 
-//onMounted(() => {
-//  const {groupId} = route.params
-//  fetchGroupDetails(groupId)
-//})
-
 watch(
   () => route.params.id,
   (newId) => {
     fetchGroupDetails(newId)
   },
-  { immediate: true }
+  { immediate: true },
 )
-
 </script>
 <template>
   <main class="group-details-container">
@@ -84,6 +101,10 @@ watch(
           <md-icon slot="icon">refresh</md-icon>
           Refresh
         </md-filled-tonal-button>
+        <md-filled-button @click="openAddChildrenModal">
+          <md-icon slot="icon">person_add</md-icon>
+          Add Children
+        </md-filled-button>
       </div>
     </div>
   </main>
@@ -95,8 +116,6 @@ watch(
 
   <div v-else-if="group" class="group-details-grid">
     <aside class="meta-section">
-
-      <!-- Verantwortlicher -->
       <div class="detail-card">
         <div class="card-header">
           <md-icon>person</md-icon>
@@ -112,23 +131,17 @@ watch(
         </div>
       </div>
 
-      <!-- Schuljahr -->
       <div class="detail-card">
         <div class="card-header">
           <md-icon>calendar_today</md-icon>
           <h3 class="md-typescale-title-medium">Academic Year</h3>
         </div>
         <div class="card-content">
-          <p class="md-typescale-body-medium">
-            Start: {{ group.academicYear!.startDate }}
-          </p>
-          <p class="md-typescale-body-medium">
-            End: {{ group.academicYear!.endDate }}
-          </p>
+          <p class="md-typescale-body-medium">Start: {{ group.academicYear!.startDate }}</p>
+          <p class="md-typescale-body-medium">End: {{ group.academicYear!.endDate }}</p>
         </div>
       </div>
 
-      <!-- Erlaubter Gruppenname (Kategorie) -->
       <div class="detail-card">
         <div class="card-header">
           <md-icon>category</md-icon>
@@ -140,10 +153,8 @@ watch(
           </p>
         </div>
       </div>
-
     </aside>
 
-    <!-- Hauptbereich: Liste der Kinder -->
     <section class="main-section">
       <div class="detail-card children-card">
         <div class="card-header">
@@ -154,8 +165,28 @@ watch(
           </h2>
         </div>
 
-        <!-- Hier bindest du deine ausgelagerte ChildrenList Komponente ein -->
-        <ChildrenList :children="group.children" :hasMore="false" :isLoadingMore="false" />
+        <div v-if="group.children.length === 0" class="empty-state">
+          <md-icon class="empty-icon">sentiment_very_dissatisfied</md-icon>
+          <div class="md-typescale-body-large">No children found</div>
+        </div>
+
+        <md-list v-else class="child-list">
+          <md-list-item v-for="child in group.children" :key="child.id" type="button">
+            <div slot="start" class="avatar">
+              {{ child.firstName ? child.firstName.charAt(0).toUpperCase() : 'C' }}
+            </div>
+
+            <div slot="headline">{{ child.firstName }} {{ child.lastName }}</div>
+
+            <div slot="supporting-text">
+              <span v-if="child.dateOfBirth != null">
+                DOB: {{ formatDate(child.dateOfBirth) }}
+              </span>
+            </div>
+
+            <md-icon slot="end">chevron_right</md-icon>
+          </md-list-item>
+        </md-list>
       </div>
     </section>
   </div>
@@ -163,6 +194,9 @@ watch(
   <div v-else class="error-state">
     <p>Die Gruppendetails konnten nicht geladen werden.</p>
   </div>
+
+  <AddChildrenToGroupModal v-if="group" :group-id="group.id" :is-open="isAddModalOpen" @close="isAddModalOpen = false"
+    @added="handleChildrenAdded" />
 </template>
 <style scoped>
 .group-details-container {
@@ -191,6 +225,11 @@ h1 {
 
 .back-button {
   --md-icon-button-icon-color: var(--md-sys-color-on-background);
+}
+
+.child-list {
+  --md-list-container-color: transparent;
+  flex-grow: 1;
 }
 
 .loading-state {

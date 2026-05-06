@@ -53,9 +53,7 @@ const router = createRouter({
       component: () => import('../views/users/CreateUser.vue'),
       meta: {
         requiresAuth: true,
-        roles: [
-          'Admin',
-        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+        roles: ['Admin'] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
     {
@@ -64,9 +62,7 @@ const router = createRouter({
       component: () => import('../views/groups/GroupManagement.vue'),
       meta: {
         requiresAuth: true,
-        roles: [
-          'Admin',
-        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+        roles: ['Admin'] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
     {
@@ -75,9 +71,7 @@ const router = createRouter({
       component: () => import('../views/groups/GroupDetails.vue'),
       meta: {
         requiresAuth: true,
-        roles: [
-          'Admin',
-        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+        roles: ['Admin'] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
     {
@@ -89,7 +83,7 @@ const router = createRouter({
         roles: [
           'Admin',
           'CoAdmin',
-          'Team'
+          'Team',
         ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
@@ -102,7 +96,7 @@ const router = createRouter({
         roles: [
           'Admin',
           'CoAdmin',
-          'Team'
+          'Team',
         ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
@@ -112,9 +106,7 @@ const router = createRouter({
       component: () => import('../views/groups/AllowedGroupnamesManagement.vue'),
       meta: {
         requiresAuth: true,
-        roles: [
-          'Admin',
-        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+        roles: ['Admin'] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
       },
     },
   ],

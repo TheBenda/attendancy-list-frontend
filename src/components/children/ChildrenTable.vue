@@ -3,23 +3,21 @@ import type { components } from '@/stores/api/apiclient'
 
 type ChildDto = components['schemas']['GetChildResponse']
 
-// 1. Props definieren (Daten kommen vom Parent)
 defineProps<{
-  children: ChildDto[];
-  hasMore: boolean;
-  isLoadingMore: boolean;
+  children: ChildDto[]
+  hasMore: boolean
+  isLoadingMore: boolean
 }>()
 
-// 2. Emits definieren (Aktionen an den Parent weitergeben)
 const emit = defineEmits<{
-  (e: 'load-more'): void;
-  (e: 'child-click', childId: string | number): void;
+  (e: 'load-more'): void
+  (e: 'child-click', childId: string | number): void
 }>()
 
-// 3. Formatierungslogik (aus der ursprünglichen Datei übernommen)
 const formatDate = (timestampSeconds: number | string) => {
   if (timestampSeconds == null) return 'Unknown Date'
-  const ts = typeof timestampSeconds === 'string' ? parseInt(timestampSeconds, 10) : timestampSeconds
+  const ts =
+    typeof timestampSeconds === 'string' ? parseInt(timestampSeconds, 10) : timestampSeconds
   const date = new Date(ts * 1000)
   const y = date.getFullYear()
   const m = String(date.getMonth() + 1).padStart(2, '0')
@@ -38,19 +36,20 @@ const formatDate = (timestampSeconds: number | string) => {
 
     <!-- Liste -->
     <md-list v-else class="child-list">
-      <md-list-item v-for="child in children" :key="child.id" type="button" @click="emit('child-click', child.id)">
+      <md-list-item
+        v-for="child in children"
+        :key="child.id"
+        type="button"
+        @click="emit('child-click', child.id)"
+      >
         <div slot="start" class="avatar">
           {{ child.firstName ? child.firstName.charAt(0).toUpperCase() : 'C' }}
         </div>
 
-        <div slot="headline">
-          {{ child.firstName }} {{ child.lastName }}
-        </div>
+        <div slot="headline">{{ child.firstName }} {{ child.lastName }}</div>
 
         <div slot="supporting-text">
-          <span v-if="child.dateOfBirth != null">
-            DOB: {{ formatDate(child.dateOfBirth) }}
-          </span>
+          <span v-if="child.dateOfBirth != null"> DOB: {{ formatDate(child.dateOfBirth) }} </span>
         </div>
 
         <md-icon slot="end">chevron_right</md-icon>
@@ -116,4 +115,5 @@ md-list-item:last-child {
   justify-content: center;
   padding: 16px;
   border-top: 1px solid var(--md-sys-color-surface-container-high, var(--color-background));
-}</style>
+}
+</style>

@@ -39,8 +39,8 @@ const fetchUsersByRoles = async () => {
           },
         },
         headers: {
-          Authorization: `Bearer ${authStore.accessToken}`
-        }
+          Authorization: `Bearer ${authStore.accessToken}`,
+        },
       })
 
       if (apiError) {
@@ -126,7 +126,9 @@ onMounted(() => {
 
             <div slot="headline">
               {{ user.firstName || '' }} {{ user.lastName || '' }}
-              <span v-if="!user.firstName && !user.lastName" class="text-muted">No Name Provided</span>
+              <span v-if="!user.firstName && !user.lastName" class="text-muted"
+                >No Name Provided</span
+              >
             </div>
 
             <div slot="supporting-text">

@@ -4,8 +4,8 @@ import userAuth from '@/stores/userAuth'
 import { useRouter } from 'vue-router'
 
 const login = reactive({
-  email: 'john.doe@company.com',
-  password: '•••••••••',
+  email: '',
+  password: '',
 })
 
 const isLoading = ref(false)
@@ -38,32 +38,16 @@ const onSubmit = async () => {
     <div class="login-card">
       <h2 class="login-title">Login</h2>
       <form @submit.prevent="onSubmit" class="login-form">
-        <!-- Email -->
-        <md-outlined-text-field
-          id="email"
-          label="Email address"
-          type="email"
-          autocomplete="email"
-          :value="login.email"
-          @input="login.email = $event.target.value"
-          :error="!!errorMessage"
-          required
-        ></md-outlined-text-field>
+        <!-- Replace md-outlined-text-field with md-filled-text-field -->
+        <md-filled-text-field id="email" label="Email address" type="email" autocomplete="email" v-model="login.email"
+          :error="!!errorMessage" required>
+        </md-filled-text-field>
 
-        <!-- Password -->
-        <md-outlined-text-field
-          id="password"
-          label="Password"
-          type="password"
-          autocomplete="current-password"
-          :value="login.password"
-          @input="login.password = $event.target.value"
-          :error="!!errorMessage"
-          :error-text="errorMessage || ''"
-          required
-        ></md-outlined-text-field>
+        <md-filled-text-field id="password" label="Password" type="password" autocomplete="current-password"
+          v-model="login.password" :error="!!errorMessage" :error-text="errorMessage || ''" required>
+        </md-filled-text-field>
 
-        <!-- Submit -->
+
         <md-filled-button type="submit" class="submit-button" :disabled="isLoading">
           {{ isLoading ? 'Logging in…' : 'Login' }}
         </md-filled-button>
@@ -110,9 +94,12 @@ const onSubmit = async () => {
   gap: 1.5rem;
 }
 
-md-outlined-text-field,
 .submit-button {
   width: 100%;
+}
+
+md-filled-text-field {
+  --md-filled-text-field-container-color: #9da09d;
 }
 
 .submit-button {

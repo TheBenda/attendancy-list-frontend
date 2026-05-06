@@ -1,0 +1,100 @@
+--- src/modals/children/AddChildrenToGroupModal.vue
++++ src/modals/children/AddChildrenToGroupModal.vue
+@@ -1,5 +1,5 @@
+ <script setup lang="ts">
+-import { ref, onMounted } from 'vue'
++import { ref, onMounted, watch } from 'vue'
+ import client from '@/stores/apiAdapter'
+ import { userAuthStore } from '@/stores/userAuth'
+ import type { components } from '@/stores/api/apiclient'
+@@ -21,14 +21,27 @@
+ const availableChildren = ref<ChildDto[]>([])
+ const selectedChildIds = ref<string[]>([])
+ const isSaving = ref(false)
++const searchQuery = ref('')
++const isSearching = ref(false)
++let searchTimeout: ReturnType<typeof setTimeout> | null = null
+ 
+ const loadChildren = async () => {
++  isSearching.value = true
++  
++  const queryParams: any = { limit: 20 }
++  if (searchQuery.value.trim()) {
++    queryParams.name = searchQuery.value.trim()
++  }
++  
+   // Use your existing GET /api/children endpoint here
+   const { data, error } = await client.GET('/api/children/search-by-name', {
+     headers: { Authorization: `Bearer ${authStore.accessToken}` },
+     params: {
+-      query: {
+-        limit: 20
+-      }
++      query: queryParams
+     }
+   })
+   if (data) {
+     availableChildren.value = data.items || []
+   } else {
+     console.error('Unable to load children for AddChildrenToGroupModal: ', error)
+     toast.error('An error occured when loading children.')
+   }
++  
++  isSearching.value = false
+ }
+ 
++// Debounce search requests
++watch(searchQuery, () => {
++  if (searchTimeout) {
++    clearTimeout(searchTimeout)
++  }
++  searchTimeout = setTimeout(() => {
++    loadChildren()
++  }, 300)
++})
++
+ // Submit the selected children to the group
+ const saveChildrenToGroup = async () => {
+@@ -69,6 +82,7 @@
+ 
+ const closeModal = () => {
+   selectedChildIds.value = [] // Reset selection
++  searchQuery.value = ''
+   emit('close')
+ }
+ 
+@@ -80,6 +94,13 @@
+     <div slot="headline">Add Children to Group</div>
+ 
+     <div slot="content" class="dialog-content">
++      <md-outlined-text-field
++        v-model="searchQuery"
++        label="Search children by name"
++        class="search-bar"
++        :disabled="isSaving"
++      ></md-outlined-text-field>
++
+       <!-- List of children with checkboxes could go here -->
++      <div v-if="isSearching" class="loading-state">Loading children...</div>
++      <div v-else-if="availableChildren.length === 0" class="empty-state">No children found.</div>
+       <md-list>
+         <md-list-item v-for="child in availableChildren" :key="child.id">
+           <div slot="headline">{{ child.firstName }} {{ child.lastName }}</div>
+@@ -106,6 +127,19 @@
+   max-height: 60vh;
+   overflow-y: auto;
++  display: flex;
++  flex-direction: column;
++  gap: 16px;
+ }
++
++.search-bar {
++  width: 100%;
++}
++
++.loading-state, .empty-state {
++  padding: 16px;
++  text-align: center;
++  color: var(--md-sys-color-on-surface-variant);
++}
+ </style>
