@@ -70,6 +70,17 @@ const router = createRouter({
       },
     },
     {
+      path: '/groups/:id',
+      name: 'group-details',
+      component: () => import('../views/groups/GroupDetails.vue'),
+      meta: {
+        requiresAuth: true,
+        roles: [
+          'Admin',
+        ] as import('@/stores/api/apiclient').components['schemas']['UserRole'][],
+      },
+    },
+    {
       path: '/children',
       name: 'children',
       component: () => import('../views/children/ChildrenManagement.vue'),
