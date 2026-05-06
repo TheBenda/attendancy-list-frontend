@@ -351,6 +351,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/groups/{groupId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetGroup"];
+        put?: never;
+        post?: never;
+        delete: operations["DeleteGroup"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/groups": {
         parameters: {
             query?: never;
@@ -362,22 +378,6 @@ export interface paths {
         put: operations["UpdateGroup"];
         post: operations["CreateGroup"];
         delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/groups/{groupId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete: operations["DeleteGroup"];
         options?: never;
         head?: never;
         patch?: never;
@@ -572,7 +572,7 @@ export interface components {
             /** Format: date */
             endDate: string;
         };
-        AddChildToGroupRequest: {
+        AddChildrenToGroupRequest: {
             childIds: string[];
         };
         AddUserRoleRequest: {
@@ -591,10 +591,10 @@ export interface components {
         ChildDto: {
             firstName: string;
             lastName: string;
-            /** Format: uuid */
-            id: string;
             /** Format: int64 */
             dateOfBirth: number | string;
+            /** Format: uuid */
+            id: string;
         };
         CreateAbsenceRequest: {
             /** Format: date-time */
@@ -675,6 +675,10 @@ export interface components {
             /** Format: uuid */
             id: string;
             groupName: string;
+            children: components["schemas"]["GetChildResponse"][];
+            responsibleUser: null | components["schemas"]["UserDto"];
+            academicYear: null | components["schemas"]["AcademicYearDto"];
+            allowedGroupName: null | components["schemas"]["AllowedGroupnamesDto"];
         };
         GetGroupsResponse: {
             groups: components["schemas"]["GetGroupResponse"][];
@@ -1281,9 +1285,51 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["AddChildToGroupRequest"];
+                "application/json": components["schemas"]["AddChildrenToGroupRequest"];
             };
         };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                groupId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GetGroupResponse"];
+                };
+            };
+        };
+    };
+    DeleteGroup: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                groupId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {
@@ -1366,26 +1412,6 @@ export interface operations {
                 content: {
                     "application/problem+json": components["schemas"]["ProblemDetails"];
                 };
-            };
-        };
-    };
-    DeleteGroup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
             };
         };
     };
