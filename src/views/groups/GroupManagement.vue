@@ -25,14 +25,21 @@ const navigateToAllowedGroupnames = () => {
   router.push('/groups/allowed-groupnames')
 }
 
+const navigateToGroupDetails = (groupId: string) => {
+  router.push({
+    name: 'group-details',
+    params: { id: groupId },
+  })
+}
+
 const fetchGroups = async () => {
   isLoading.value = true
 
   try {
     const { data, error: apiError } = await client.GET('/api/groups', {
       headers: {
-        Authorization: `Bearer ${authStore.accessToken}`
-      }
+        Authorization: `Bearer ${authStore.accessToken}`,
+      },
     })
 
     if (apiError) {
@@ -93,7 +100,12 @@ onMounted(() => {
         </div>
 
         <md-list v-else class="group-list">
-          <md-list-item v-for="group in groups" :key="group.id" type="button">
+          <md-list-item
+            v-for="group in groups"
+            :key="group.id"
+            type="button"
+            @click="navigateToGroupDetails(group.id)"
+          >
             <div slot="start" class="avatar">
               {{ group.groupName ? group.groupName.charAt(0).toUpperCase() : 'G' }}
             </div>
@@ -155,7 +167,8 @@ h1 {
 
 @media (min-width: 1024px) {
   .groups-grid {
-    grid-template-columns: 1fr; /* Keep it single column for now, can change if needed */
+    grid-template-columns: 1fr;
+    /* Keep it single column for now, can change if needed */
   }
 }
 

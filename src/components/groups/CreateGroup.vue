@@ -32,7 +32,7 @@ const showUserList = ref<boolean>(false)
 const filteredUsers = computed(() => {
   if (!searchEmail.value) return users.value
   const query = searchEmail.value.toLowerCase()
-  return users.value.filter(u => u.email?.toLowerCase().includes(query))
+  return users.value.filter((u) => u.email?.toLowerCase().includes(query))
 })
 
 const selectUser = (user: UserDto) => {
@@ -55,7 +55,7 @@ const fetchData = async () => {
     const [groupnamesResponse, academicYearsResponse, usersResponse] = await Promise.all([
       client.GET('/api/groups/allowed-groupnames', { headers }),
       client.GET('/api/groups/academic-years', { headers }),
-      client.GET('/api/users', { headers })
+      client.GET('/api/users', { headers }),
     ])
 
     const { data: groupnamesData, error: groupnamesError } = groupnamesResponse
@@ -114,7 +114,7 @@ const createGroup = async () => {
     return
   }
 
-  const selectedGroupname = groupnames.value.find(g => g.id === selectedGroupnameId.value)
+  const selectedGroupname = groupnames.value.find((g) => g.id === selectedGroupnameId.value)
   if (!selectedGroupname) return
 
   if (!authStore.user?.id) {
@@ -126,14 +126,14 @@ const createGroup = async () => {
   try {
     const { error } = await client.POST('/api/groups', {
       headers: {
-        Authorization: `Bearer ${authStore.accessToken}`
+        Authorization: `Bearer ${authStore.accessToken}`,
       },
       body: {
         groupnameId: selectedGroupnameId.value,
         groupName: selectedGroupname.groupName,
         academicYearId: selectedAcademicYearId.value,
-        responsibleUserId: selectedResponsibleUserId.value
-      }
+        responsibleUserId: selectedResponsibleUserId.value,
+      },
     })
 
     if (error) {
@@ -154,7 +154,7 @@ const createGroup = async () => {
 
 // Expose openModal so the parent component can call it
 defineExpose({
-  openModal
+  openModal,
 })
 </script>
 
@@ -165,17 +165,25 @@ defineExpose({
     <div slot="content" class="dialog-content">
       <div v-if="isLoadingData" class="loading-state">
         <md-circular-progress indeterminate></md-circular-progress>
-        <div style="margin-top: 12px; color: var(--md-sys-color-on-surface-variant);">Loading data...</div>
+        <div style="margin-top: 12px; color: var(--md-sys-color-on-surface-variant)">
+          Loading data...
+        </div>
       </div>
 
       <div v-else class="form-container">
-        <md-outlined-select label="Group Name" @change="(e: any) => selectedGroupnameId = e.target.value">
+        <md-outlined-select
+          label="Group Name"
+          @change="(e: any) => (selectedGroupnameId = e.target.value)"
+        >
           <md-select-option v-for="gn in groupnames" :key="gn.id" :value="gn.id">
             <div slot="headline">{{ gn.groupName }}</div>
           </md-select-option>
         </md-outlined-select>
 
-        <md-outlined-select label="Academic Year" @change="(e: any) => selectedAcademicYearId = e.target.value">
+        <md-outlined-select
+          label="Academic Year"
+          @change="(e: any) => (selectedAcademicYearId = e.target.value)"
+        >
           <md-select-option v-for="ay in academicYears" :key="ay.id" :value="ay.id">
             <div slot="headline">
               {{ new Date(ay.startDate).getFullYear() }} - {{ new Date(ay.endDate).getFullYear() }}
@@ -184,15 +192,25 @@ defineExpose({
         </md-outlined-select>
 
         <div class="search-field-container">
-          <md-outlined-text-field label="Responsible User" :value="searchEmail"
-            @input="(e: any) => searchEmail = e.target.value" @focus="showUserList = true" @blur="onBlurSearch"
-            class="full-width">
+          <md-outlined-text-field
+            label="Responsible User"
+            :value="searchEmail"
+            @input="(e: any) => (searchEmail = e.target.value)"
+            @focus="showUserList = true"
+            @blur="onBlurSearch"
+            class="full-width"
+          >
             <md-icon slot="leading-icon">search</md-icon>
           </md-outlined-text-field>
 
           <div v-if="showUserList && filteredUsers.length > 0" class="autocomplete-list">
             <md-list>
-              <md-list-item v-for="user in filteredUsers" :key="user.id" type="button" @click="selectUser(user)">
+              <md-list-item
+                v-for="user in filteredUsers"
+                :key="user.id"
+                type="button"
+                @click="selectUser(user)"
+              >
                 <div slot="headline">{{ user.email || 'No email' }}</div>
                 <div slot="supporting-text">{{ user.firstName }} {{ user.lastName }}</div>
               </md-list-item>
@@ -204,8 +222,15 @@ defineExpose({
 
     <div slot="actions">
       <md-text-button @click="closeModal" :disabled="isSubmitting">Cancel</md-text-button>
-      <md-filled-button @click="createGroup"
-        :disabled="isSubmitting || !selectedGroupnameId || !selectedAcademicYearId || !selectedResponsibleUserId">
+      <md-filled-button
+        @click="createGroup"
+        :disabled="
+          isSubmitting ||
+          !selectedGroupnameId ||
+          !selectedAcademicYearId ||
+          !selectedResponsibleUserId
+        "
+      >
         Create
       </md-filled-button>
     </div>

@@ -4,1475 +4,1551 @@
  */
 
 export interface paths {
-    "/me": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Login
-         * @description Login with email and password for JWT authentication.
-         */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["LoginRequest"];
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["LoginResponse"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/refresh": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Refresh
-         * @description Get a new access token using a refresh token.
-         */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["RefreshRequest"];
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/attendance-lists/attendancelists/{attendanceListId}/page": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["GetAttendancePage"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/attendance-lists/entries": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put: operations["UpdateAttendanceListEntry"];
-        post: operations["CreateAttendanceListEntry"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/children": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetChildren"];
-        put?: never;
-        post: operations["CreateChild"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/children/{childId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetChild"];
-        put: operations["UpdateChild"];
-        post?: never;
-        delete: operations["DeleteChild"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/children/{childId}/absence": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["CreateAbsenceForChild"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetUsers"];
-        put?: never;
-        post: operations["CreateUser"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/users/{userId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetUser"];
-        put: operations["UpdateUser"];
-        post?: never;
-        delete: operations["DeleteUser"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/users/roles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Gets all available roles. */
-        get: operations["GetUserRoles"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/users/by-role": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetUsersByRole"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/users/guardians-children/{guardianId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetChildrenOfGuardian"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/users/{userId}/roles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["AddUserRole"];
-        delete: operations["RemoveUserRole"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/groups/{groupId}/children": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["Add children to group"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/groups": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetGroups"];
-        put: operations["UpdateGroup"];
-        post: operations["CreateGroup"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/groups/{groupId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete: operations["DeleteGroup"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/groups/allowed-groupnames": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetAllowedGroupnames"];
-        put?: never;
-        post: operations["CreateAllowedGroupname"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/groups/academic-years": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["GetAcademicYears"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/confirmEmail": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["MapIdentityApiFilterable-/confirmEmail"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/resendConfirmationEmail": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["ResendConfirmationEmailRequest"];
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/forgotPassword": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["ForgotPasswordRequest"];
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/resetPassword": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["ResetPasswordRequest"];
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-                /** @description Bad Request */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
+  '/me': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/auth/logout': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': unknown
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/auth/login': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Login
+     * @description Login with email and password for JWT authentication.
+     */
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['LoginRequest']
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': components['schemas']['LoginResponse']
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/auth/refresh': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Refresh
+     * @description Get a new access token using a refresh token.
+     */
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['RefreshRequest']
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/attendance-lists/attendancelists/{attendanceListId}/page': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: operations['GetAttendancePage']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/attendance-lists/entries': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put: operations['UpdateAttendanceListEntry']
+    post: operations['CreateAttendanceListEntry']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/children': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetChildren']
+    put?: never
+    post: operations['CreateChild']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/children/{childId}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetChild']
+    put: operations['UpdateChild']
+    post?: never
+    delete: operations['DeleteChild']
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/children/search-by-name': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description Endpoint to search children by name. The endpoint supports cursor pagination. When no name is provided, all children are returned - cursor paged as well. */
+    get: operations['SearchChildrenByName']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/children/{childId}/absence': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: operations['CreateAbsenceForChild']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/users': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetUsers']
+    put?: never
+    post: operations['CreateUser']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/users/{userId}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetUser']
+    put: operations['UpdateUser']
+    post?: never
+    delete: operations['DeleteUser']
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/users/roles': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Gets all available roles. */
+    get: operations['GetUserRoles']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/users/by-role': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetUsersByRole']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/users/guardians-children/{guardianId}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetChildrenOfGuardian']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/users/{userId}/roles': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: operations['AddUserRole']
+    delete: operations['RemoveUserRole']
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/groups/{groupId}/children': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: operations['Add children to group']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/groups/{groupId}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetGroup']
+    put?: never
+    post?: never
+    delete: operations['DeleteGroup']
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/groups': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetGroups']
+    put: operations['UpdateGroup']
+    post: operations['CreateGroup']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/groups/allowed-groupnames': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetAllowedGroupnames']
+    put?: never
+    post: operations['CreateAllowedGroupname']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/groups/academic-years': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['GetAcademicYears']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/confirmEmail': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['MapIdentityApiFilterable-/confirmEmail']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/resendConfirmationEmail': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['ResendConfirmationEmailRequest']
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/forgotPassword': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['ForgotPasswordRequest']
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+        /** @description Bad Request */
+        400: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/problem+json': components['schemas']['HttpValidationProblemDetails']
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/resetPassword': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['ResetPasswordRequest']
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+        /** @description Bad Request */
+        400: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/problem+json': components['schemas']['HttpValidationProblemDetails']
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
 }
-export type webhooks = Record<string, never>;
+export type webhooks = Record<string, never>
 export interface components {
-    schemas: {
-        AcademicYearDto: {
-            /** Format: uuid */
-            id: string;
-            /** Format: date */
-            startDate: string;
-            /** Format: date */
-            endDate: string;
-        };
-        AddChildToGroupRequest: {
-            childIds: string[];
-        };
-        AddUserRoleRequest: {
-            role: string;
-        };
-        AllowedGroupnamesDto: {
-            /** Format: uuid */
-            id: string;
-            groupName: string;
-        };
-        AttendanceStatus: {
-            /** Format: int32 */
-            id?: number | string;
-            name: string;
-        };
-        ChildDto: {
-            firstName: string;
-            lastName: string;
-            /** Format: uuid */
-            id: string;
-            /** Format: int64 */
-            dateOfBirth: number | string;
-        };
-        CreateAbsenceRequest: {
-            /** Format: date-time */
-            startDate: string;
-            /** Format: date-time */
-            endDate: string;
-            /** Format: int32 */
-            absenceStatusId: number | string;
-        };
-        CreateAllowedGroupnameRequest: {
-            groupName: string;
-        };
-        CreateAttendanceListEntryRequest: {
-            /** Format: uuid */
-            childId: string;
-            /** Format: date-time */
-            date: string;
-            /** Format: date-time */
-            arrivalAt: string;
-            /** Format: date-time */
-            departureAt: string;
-            status: components["schemas"]["AttendanceStatus"];
-        };
-        CreateChildRequest: {
-            firstName: string;
-            lastName: string;
-            /** Format: int64 */
-            dateOfBirth: number | string;
-            guardianIds: string[];
-        };
-        CreateGroupRequest: {
-            groupName: string;
-            /** Format: uuid */
-            responsibleUserId: string;
-            /** Format: uuid */
-            academicYearId: string;
-            /** Format: uuid */
-            groupnameId: string;
-        };
-        CreateGroupResponse: {
-            /** Format: uuid */
-            id: string;
-        };
-        CreateUserRequest: {
-            email: string;
-            password: string;
-            firstName: null | string;
-            lastName: null | string;
-        };
-        CreateUserResponse: {
-            /** Format: uuid */
-            id: string;
-            email: string;
-            firstName: null | string;
-            lastName: null | string;
-        };
-        ForgotPasswordRequest: {
-            email: string;
-        };
-        GetAllowedGroupnamesResponse: {
-            allowedGroupnames: components["schemas"]["AllowedGroupnamesDto"][];
-        };
-        GetAttendancePageRequest: {
-            date: components["schemas"]["LocalDate"];
-        };
-        GetChildrenOfGuardianResponse: {
-            children: components["schemas"]["ChildDto"][];
-        };
-        GetChildResponse: {
-            /** Format: uuid */
-            id: string;
-            firstName: string;
-            lastName: string;
-            /** Format: int64 */
-            dateOfBirth: number | string;
-        };
-        GetGroupResponse: {
-            /** Format: uuid */
-            id: string;
-            groupName: string;
-        };
-        GetGroupsResponse: {
-            groups: components["schemas"]["GetGroupResponse"][];
-        };
-        GetUserResponse: {
-            user: components["schemas"]["UserDto"];
-        };
-        GetUsersResponse: {
-            users: components["schemas"]["UserDto"][];
-        };
-        GuidCursorRequest: {
-            /** Format: uuid */
-            cursor: null | string;
-            /** Format: int32 */
-            limit: number | string;
-        };
-        GuidCursorResponseOfGetChildResponse: {
-            items: components["schemas"]["GetChildResponse"][];
-            cursor: components["schemas"]["GuidCursorRequest"];
-            hasMore: boolean;
-        };
-        HttpValidationProblemDetails: {
-            type?: null | string;
-            title?: null | string;
-            /** Format: int32 */
-            status?: null | number | string;
-            detail?: null | string;
-            instance?: null | string;
-            errors?: {
-                [key: string]: string[];
-            };
-        };
-        LocalDate: unknown;
-        LoginRequest: {
-            email: string;
-            password: string;
-        };
-        LoginResponse: {
-            user: components["schemas"]["UserDto"];
-            accessToken: string;
-            refreshToken: string;
-        };
-        NoContentResult: {
-            /** Format: int32 */
-            statusCode?: number | string;
-        };
-        ProblemDetails: {
-            type?: null | string;
-            title?: null | string;
-            /** Format: int32 */
-            status?: null | number | string;
-            detail?: null | string;
-            instance?: null | string;
-        };
-        RefreshRequest: {
-            refreshToken: string;
-        };
-        ResendConfirmationEmailRequest: {
-            email: string;
-        };
-        ResetPasswordRequest: {
-            email: string;
-            resetCode: string;
-            newPassword: string;
-        };
-        UpdateAttendanceListEntryRequest: {
-            /** Format: uuid */
-            childId: string;
-            /** Format: date-time */
-            date: string;
-            /** Format: date-time */
-            arrivalAt: string;
-            /** Format: date-time */
-            departureAt: string;
-            status: components["schemas"]["AttendanceStatus"];
-        };
-        UpdateChildRequest: {
-            childFirstName: string;
-            childLastName: string;
-            /** Format: int64 */
-            dateOfBirth: number | string;
-        };
-        UpdateGroupRequest: {
-            /** Format: uuid */
-            groupId: string;
-            groupName: string;
-        };
-        UpdateUserRequest: {
-            firstName: null | string;
-            lastName: null | string;
-        };
-        UserDto: {
-            /** Format: uuid */
-            id: string;
-            email: null | string;
-            firstName: null | string;
-            lastName: null | string;
-            phoneNumber: null | string;
-            roles: components["schemas"]["UserRole"][];
-        };
-        /** @enum {unknown} */
-        UserRole: "Admin" | "CoAdmin" | "Team" | "Parent";
-    };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+  schemas: {
+    AcademicYearDto: {
+      /** Format: uuid */
+      id: string
+      /** Format: date */
+      startDate: string
+      /** Format: date */
+      endDate: string
+    }
+    AddChildrenToGroupRequest: {
+      childIds: string[]
+    }
+    AddUserRoleRequest: {
+      role: string
+    }
+    AllowedGroupnamesDto: {
+      /** Format: uuid */
+      id: string
+      groupName: string
+    }
+    AttendanceStatus: {
+      /** Format: int32 */
+      id?: number | string
+      name: string
+    }
+    ChildDto: {
+      firstName: string
+      lastName: string
+      /** Format: int64 */
+      dateOfBirth: number | string
+      /** Format: uuid */
+      id: string
+    }
+    CreateAbsenceRequest: {
+      /** Format: date-time */
+      startDate: string
+      /** Format: date-time */
+      endDate: string
+      /** Format: int32 */
+      absenceStatusId: number | string
+    }
+    CreateAllowedGroupnameRequest: {
+      groupName: string
+    }
+    CreateAttendanceListEntryRequest: {
+      /** Format: uuid */
+      childId: string
+      /** Format: date-time */
+      date: string
+      /** Format: date-time */
+      arrivalAt: string
+      /** Format: date-time */
+      departureAt: string
+      status: components['schemas']['AttendanceStatus']
+    }
+    CreateChildRequest: {
+      firstName: string
+      lastName: string
+      /** Format: int64 */
+      dateOfBirth: number | string
+      guardianIds: string[]
+    }
+    CreateGroupRequest: {
+      groupName: string
+      /** Format: uuid */
+      responsibleUserId: string
+      /** Format: uuid */
+      academicYearId: string
+      /** Format: uuid */
+      groupnameId: string
+    }
+    CreateGroupResponse: {
+      /** Format: uuid */
+      id: string
+    }
+    CreateUserRequest: {
+      email: string
+      password: string
+      firstName: null | string
+      lastName: null | string
+    }
+    CreateUserResponse: {
+      /** Format: uuid */
+      id: string
+      email: string
+      firstName: null | string
+      lastName: null | string
+    }
+    ForgotPasswordRequest: {
+      email: string
+    }
+    GetAllowedGroupnamesResponse: {
+      allowedGroupnames: components['schemas']['AllowedGroupnamesDto'][]
+    }
+    GetAttendancePageRequest: {
+      date: components['schemas']['LocalDate']
+    }
+    GetChildrenOfGuardianResponse: {
+      children: components['schemas']['ChildDto'][]
+    }
+    GetChildResponse: {
+      /** Format: uuid */
+      id: string
+      firstName: string
+      lastName: string
+      /** Format: int64 */
+      dateOfBirth: number | string
+    }
+    GetGroupResponse: {
+      /** Format: uuid */
+      id: string
+      groupName: string
+      children: components['schemas']['GetChildResponse'][]
+      responsibleUser: null | components['schemas']['UserDto']
+      academicYear: null | components['schemas']['AcademicYearDto']
+      allowedGroupName: null | components['schemas']['AllowedGroupnamesDto']
+    }
+    GetGroupsResponse: {
+      groups: components['schemas']['GetGroupResponse'][]
+    }
+    GetUserResponse: {
+      user: components['schemas']['UserDto']
+    }
+    GetUsersResponse: {
+      users: components['schemas']['UserDto'][]
+    }
+    GuidCursorRequest: {
+      /** Format: uuid */
+      cursor: null | string
+      /** Format: int32 */
+      limit: number | string
+    }
+    GuidCursorResponseOfGetChildResponse: {
+      items: components['schemas']['GetChildResponse'][]
+      cursor: components['schemas']['GuidCursorRequest']
+      hasMore: boolean
+    }
+    HttpValidationProblemDetails: {
+      type?: null | string
+      title?: null | string
+      /** Format: int32 */
+      status?: null | number | string
+      detail?: null | string
+      instance?: null | string
+      errors?: {
+        [key: string]: string[]
+      }
+    }
+    LocalDate: unknown
+    LoginRequest: {
+      email: string
+      password: string
+    }
+    LoginResponse: {
+      user: components['schemas']['UserDto']
+      accessToken: string
+      refreshToken: string
+    }
+    NoContentResult: {
+      /** Format: int32 */
+      statusCode?: number | string
+    }
+    ProblemDetails: {
+      type?: null | string
+      title?: null | string
+      /** Format: int32 */
+      status?: null | number | string
+      detail?: null | string
+      instance?: null | string
+    }
+    RefreshRequest: {
+      refreshToken: string
+    }
+    ResendConfirmationEmailRequest: {
+      email: string
+    }
+    ResetPasswordRequest: {
+      email: string
+      resetCode: string
+      newPassword: string
+    }
+    UpdateAttendanceListEntryRequest: {
+      /** Format: uuid */
+      childId: string
+      /** Format: date-time */
+      date: string
+      /** Format: date-time */
+      arrivalAt: string
+      /** Format: date-time */
+      departureAt: string
+      status: components['schemas']['AttendanceStatus']
+    }
+    UpdateChildRequest: {
+      childFirstName: string
+      childLastName: string
+      /** Format: int64 */
+      dateOfBirth: number | string
+    }
+    UpdateGroupRequest: {
+      /** Format: uuid */
+      groupId: string
+      groupName: string
+    }
+    UpdateUserRequest: {
+      firstName: null | string
+      lastName: null | string
+    }
+    UserDto: {
+      /** Format: uuid */
+      id: string
+      email: null | string
+      firstName: null | string
+      lastName: null | string
+      phoneNumber: null | string
+      roles: components['schemas']['UserRole'][]
+    }
+    /** @enum {unknown} */
+    UserRole: 'Admin' | 'CoAdmin' | 'Team' | 'Parent'
+  }
+  responses: never
+  parameters: never
+  requestBodies: never
+  headers: never
+  pathItems: never
 }
-export type $defs = Record<string, never>;
+export type $defs = Record<string, never>
 export interface operations {
-    GetAttendancePage: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                attendanceListId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GetAttendancePageRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UpdateAttendanceListEntry: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateAttendanceListEntryRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CreateAttendanceListEntry: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateAttendanceListEntryRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GetChildren: {
-        parameters: {
-            query?: {
-                cursor?: string;
-                limit?: number | string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GuidCursorResponseOfGetChildResponse"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-        };
-    };
-    CreateChild: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateChildRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GetChild: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                childId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UpdateChild: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                childId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateChildRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DeleteChild: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                childId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CreateAbsenceForChild: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                childId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateAbsenceRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GetUsers: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GetUsersResponse"];
-                };
-            };
-        };
-    };
-    CreateUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateUserRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CreateUserResponse"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-        };
-    };
-    GetUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GetUserResponse"];
-                };
-            };
-        };
-    };
-    UpdateUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateUserRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DeleteUser: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GetUserRoles: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": string[];
-                };
-            };
-        };
-    };
-    GetUsersByRole: {
-        parameters: {
-            query: {
-                userRole: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GetUsersResponse"];
-                };
-            };
-        };
-    };
-    GetChildrenOfGuardian: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                guardianId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GetChildrenOfGuardianResponse"];
-                };
-            };
-        };
-    };
-    AddUserRole: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AddUserRoleRequest"];
-            };
-        };
-        responses: {
-            /** @description No Content */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-        };
-    };
-    RemoveUserRole: {
-        parameters: {
-            query: {
-                role: string;
-            };
-            header?: never;
-            path: {
-                userId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description No Content */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-            /** @description Not Found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-        };
-    };
-    "Add children to group": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["AddChildToGroupRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GetGroups: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GetGroupsResponse"];
-                };
-            };
-        };
-    };
-    UpdateGroup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateGroupRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    CreateGroup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateGroupRequest"];
-            };
-        };
-        responses: {
-            /** @description Created */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CreateGroupResponse"];
-                };
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/problem+json": components["schemas"]["ProblemDetails"];
-                };
-            };
-        };
-    };
-    DeleteGroup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GetAllowedGroupnames: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GetAllowedGroupnamesResponse"];
-                };
-            };
-        };
-    };
-    CreateAllowedGroupname: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateAllowedGroupnameRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["NoContentResult"];
-                };
-            };
-        };
-    };
-    GetAcademicYears: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AcademicYearDto"][];
-                };
-            };
-        };
-    };
-    "MapIdentityApiFilterable-/confirmEmail": {
-        parameters: {
-            query: {
-                userId: string;
-                code: string;
-                changedEmail?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
+  GetAttendancePage: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        attendanceListId: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['GetAttendancePageRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  UpdateAttendanceListEntry: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateAttendanceListEntryRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  CreateAttendanceListEntry: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAttendanceListEntryRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  GetChildren: {
+    parameters: {
+      query?: {
+        cursor?: string
+        limit?: number | string
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GuidCursorResponseOfGetChildResponse']
+        }
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+    }
+  }
+  CreateChild: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateChildRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  GetChild: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        childId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  UpdateChild: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        childId: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateChildRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  DeleteChild: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        childId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  SearchChildrenByName: {
+    parameters: {
+      query?: {
+        name?: string
+        cursor?: string
+        limit?: number | string
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GuidCursorResponseOfGetChildResponse']
+        }
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+    }
+  }
+  CreateAbsenceForChild: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        childId: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAbsenceRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  GetUsers: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GetUsersResponse']
+        }
+      }
+    }
+  }
+  CreateUser: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateUserRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['CreateUserResponse']
+        }
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+    }
+  }
+  GetUser: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        userId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GetUserResponse']
+        }
+      }
+    }
+  }
+  UpdateUser: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        userId: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateUserRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  DeleteUser: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        userId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  GetUserRoles: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': string[]
+        }
+      }
+    }
+  }
+  GetUsersByRole: {
+    parameters: {
+      query: {
+        userRole: string
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GetUsersResponse']
+        }
+      }
+    }
+  }
+  GetChildrenOfGuardian: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        guardianId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GetChildrenOfGuardianResponse']
+        }
+      }
+    }
+  }
+  AddUserRole: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        userId: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AddUserRoleRequest']
+      }
+    }
+    responses: {
+      /** @description No Content */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+    }
+  }
+  RemoveUserRole: {
+    parameters: {
+      query: {
+        role: string
+      }
+      header?: never
+      path: {
+        userId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description No Content */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+    }
+  }
+  'Add children to group': {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        groupId: string
+      }
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AddChildrenToGroupRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  GetGroup: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        groupId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GetGroupResponse']
+        }
+      }
+    }
+  }
+  DeleteGroup: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        groupId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  GetGroups: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GetGroupsResponse']
+        }
+      }
+    }
+  }
+  UpdateGroup: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UpdateGroupRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  CreateGroup: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateGroupRequest']
+      }
+    }
+    responses: {
+      /** @description Created */
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['CreateGroupResponse']
+        }
+      }
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/problem+json': components['schemas']['ProblemDetails']
+        }
+      }
+    }
+  }
+  GetAllowedGroupnames: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['GetAllowedGroupnamesResponse']
+        }
+      }
+    }
+  }
+  CreateAllowedGroupname: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateAllowedGroupnameRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['NoContentResult']
+        }
+      }
+    }
+  }
+  GetAcademicYears: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['AcademicYearDto'][]
+        }
+      }
+    }
+  }
+  'MapIdentityApiFilterable-/confirmEmail': {
+    parameters: {
+      query: {
+        userId: string
+        code: string
+        changedEmail?: string
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
 }

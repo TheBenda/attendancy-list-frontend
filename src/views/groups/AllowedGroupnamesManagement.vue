@@ -24,8 +24,8 @@ const fetchAllowedGroupnames = async () => {
   try {
     const { data, error: apiError } = await client.GET('/api/groups/allowed-groupnames', {
       headers: {
-        Authorization: `Bearer ${authStore.accessToken}`
-      }
+        Authorization: `Bearer ${authStore.accessToken}`,
+      },
     })
 
     if (apiError) {
@@ -61,11 +61,11 @@ const createAllowedGroupname = async () => {
   try {
     const { error } = await client.POST('/api/groups/allowed-groupnames', {
       headers: {
-        Authorization: `Bearer ${authStore.accessToken}`
+        Authorization: `Bearer ${authStore.accessToken}`,
       },
       body: {
-        groupName: newGroupname.value.trim()
-      }
+        groupName: newGroupname.value.trim(),
+      },
     })
 
     if (error) {
@@ -154,7 +154,7 @@ onMounted(() => {
           <md-outlined-text-field
             label="Group Name"
             :value="newGroupname"
-            @input="(e: any) => newGroupname = e.target.value"
+            @input="(e: any) => (newGroupname = e.target.value)"
             @keyup.enter="createAllowedGroupname"
             class="full-width"
           ></md-outlined-text-field>
@@ -163,7 +163,10 @@ onMounted(() => {
 
       <div slot="actions">
         <md-text-button @click="closeCreateModal" :disabled="isSubmitting">Cancel</md-text-button>
-        <md-filled-button @click="createAllowedGroupname" :disabled="isSubmitting || !newGroupname.trim()">
+        <md-filled-button
+          @click="createAllowedGroupname"
+          :disabled="isSubmitting || !newGroupname.trim()"
+        >
           Create
         </md-filled-button>
       </div>
